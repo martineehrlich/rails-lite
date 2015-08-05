@@ -4,7 +4,7 @@ server = WEBrick::HTTPServer.new(:Port => 3000)
 
 server.mount_proc("/") do |request, response|
   response.content_type = "text/text"
-  response.body = "I love App Academy!"
+  response.body = "hello"
 end
 
 trap('INT') do

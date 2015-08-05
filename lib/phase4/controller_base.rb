@@ -17,5 +17,9 @@ module Phase4
     def session
       @session ||= Session.new(self.req)
     end
+
+    def flash
+      @flash ||= Flash.new(self.req)
+    end
   end
 end

@@ -4,6 +4,7 @@ module Phase2
 
     # Setup the controller
     def initialize(req, res)
+    
       @req = req
       @res = res
     end

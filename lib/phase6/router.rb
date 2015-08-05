@@ -11,7 +11,8 @@ module Phase6
 
     # checks if pattern matches path and method matches request method
     def matches?(req)
-      req.path =~ @pattern && req.request_method.downcase.to_sym == @http_method
+      # debugger
+      req.path =~ Regexp.new(@pattern) && req.request_method.downcase.to_sym == @http_method
     end
 
     # use pattern to pull out route params (save for later?)
@@ -49,19 +50,19 @@ module Phase6
     # when called add route
     [:get, :post, :put, :delete].each do |http_method|
       define_method(http_method) do |pattern, controller_class, action_name|
-          add_route(http_method, pattern, controller_class, action_name)
+          add_route(pattern, http_method, controller_class, action_name)
       end
     end
 
     # should return the route that matches this request
     def match(req)
-      @routes.find { |route| route = route.matches?(req) }
+      @routes.find { |route| route.matches?(req) }
     end
 
     # either throw 404 or call run on a matched route
     def run(req, res)
       if match(req)
-        match.run(req, res)
+        match(req).run(req, res)
       else
         res.status = 404
       end
